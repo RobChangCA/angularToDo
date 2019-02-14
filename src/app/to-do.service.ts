@@ -1,6 +1,7 @@
 import { ToDo } from './model/toDo';
 import { Injectable, OnInit } from '@angular/core';
 import { Subject, Observable } from 'rxjs';
+import { Priority } from './model/priority';
 
 @Injectable({
   providedIn: 'root'
@@ -17,7 +18,7 @@ export class ToDoService{
       completed: false,
       dateCreated: new Date(2008, 6, 22),
       dateCompleted: null,
-      priority: 2
+      priority: Priority.medium
     },
     {
       id: 2,
@@ -26,7 +27,7 @@ export class ToDoService{
       completed: false,
       dateCreated: new Date(2018, 6, 22),
       dateCompleted: null,
-      priority: 3
+      priority: Priority.high
     },
     {
       id: 3,
@@ -35,7 +36,7 @@ export class ToDoService{
       completed: false,
       dateCreated: new Date(2019, 1, 22),
       dateCompleted: null,
-      priority: 1
+      priority: Priority.low
     }
   ]
 

@@ -20,7 +20,7 @@ export class EditComponent implements OnInit {
   form = new FormGroup({
     name: new FormControl('', Validators.required),
     description: new FormControl(),
-    priority: new FormControl()
+    priority: new FormControl(Priority.low)
   })
 
   private _toDoItem:ToDo ;
@@ -28,9 +28,9 @@ export class EditComponent implements OnInit {
 
 //refactor enum
   priorityArray = [
-    this.priorityEnum[1],
-    this.priorityEnum[2],
-    this.priorityEnum[3],
+    this.priorityEnum.low,
+    this.priorityEnum.medium,
+    this.priorityEnum.high,
   ]
 
   ngOnInit() {
@@ -42,12 +42,11 @@ export class EditComponent implements OnInit {
       });
     }
     this.initializeForm();
-    console.log(this.form)
   }
 
   save(){
-    //this.dialogRef.close(this.form)
-
+    this.finalizeForm();
+    this.dialogRef.close(this._toDoItem)
   }
 
   closeModal(){
@@ -55,6 +54,7 @@ export class EditComponent implements OnInit {
   }
 
   initializeForm(){
+    console.log(this.inputData)
     this._toDoItem = {
       id: this.inputData ? this.inputData.id : this.newId(),
       name: this.inputData ? this.inputData.name : null,
@@ -62,9 +62,17 @@ export class EditComponent implements OnInit {
       completed: this.inputData ? this.inputData.completed : false,
       dateCreated: this.inputData ? this.inputData.dateCreated : null,
       dateCompleted: this.inputData ? this.inputData.dateCompleted : null,
-      priority: this.inputData ? this.inputData.priority : null
+      priority: this.inputData ? this.inputData.priority : Priority.low
     }    
   }
+  
+  finalizeForm(){
+    const form = this.form.value;
+    const toDo = this._toDoItem;
+    toDo.name = form.name;
+    toDo.description = form.description;
+    toDo.priority = form.priority;
+    }
 
   newId(){
     return this._toDoService.data.reduce(

@@ -2,13 +2,14 @@
   <h2>Here is a list of tasks for you to complete:</h2> <button class="btn btn-primary" (click)='newToDo()'>New Item</button>
 </div>
 <ul>
-  <li *ngFor="let toDo of toDoList" class="container card">
+  <li *ngFor="let toDo of toDoList" class="row">
       <h3 class="col-12">{{toDo.name}}</h3>
+      <p class="col-12">Priority: {{toDo.priority}}</p>
       <p [ngClass]="toDo.dateCompleted ? 'col-6': 'col-12'">Date Created: {{toDo.dateCreated | date:'shortDate'}}</p>
       <p class="col-6" *ngIf="toDo.dateCompleted">{{toDo.dateCompleted | date:'shortDate'}}</p>
       <p class="col-12">{{toDo.description}}</p>
       <div class="container col-12">
-        <button type="button" class="btn btn-primary" (click)="onCompleted(toDo)">Completed: {{toDo.completed ? 'Yes' : 'No'}}</button>
+        <button type="button" class="btn btn-primary" (click)="toggleCompleted(toDo)">Completed: {{toDo.completed ? 'Yes' : 'No'}}</button>
         <button type="button" class="btn btn-secondary" (click)="openEditor(toDo)">Edit</button>
         <button type="submit" class="btn btn-success" *ngIf="toDo.edit">Save</button>
       </div>

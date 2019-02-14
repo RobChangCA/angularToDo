@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { ToDo } from '../model/todo';
 import { MatDialog } from '@angular/material';
 import { EditComponent } from '../edit/edit.component';
+import { timeout } from 'q';
 
 
 @Component({
@@ -22,20 +23,26 @@ export class ListComponent implements OnInit {
       this._toDoService.updateToDoData(); 
   }
 
-  openEditor(x:ToDo){
+  openEditor(toDoItem:ToDo){
     let dialogRef = this.dialog.open(EditComponent, {
-     data: {
-        name: x.name,
-        description: x.description,
-        priority: x.priority
-      }
+     data: toDoItem
     })
     dialogRef.beforeClosed().subscribe(
       (x)=>{
+        console.log(x);
+        if (x){
+          this.updateToDo(x);          
+        }
     })
   }
-  onCompleted(x:ToDo){
-    x.completed = true;
+  toggleCompleted(x:ToDo){
+    x.completed = !x.completed;
+    if (x.completed){
+      x.dateCompleted = new Date
+      this.updateToDo(x)
+    }else{
+    x.dateCompleted = null;
+    }
   }
   onSave(x:ToDo){
   }
@@ -48,6 +55,10 @@ export class ListComponent implements OnInit {
         this.toDoList.push(x);
     })
   }
-
+  
+  updateToDo(x:ToDo){
+    let itemIndex = this.toDoList.findIndex( index => index.id === x.id);
+    this.toDoList.splice(itemIndex, 1, x)
+  }
   
 }
