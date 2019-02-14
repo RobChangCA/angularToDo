@@ -1,0 +1,12 @@
+.card{
+    margin: 5px;
+    padding: 5px;
+    justify-content: center;
+    align-items: center;
+}
+.list{
+    &__header{
+        display:flex;
+        justify-content: space-between;
+    }
+}

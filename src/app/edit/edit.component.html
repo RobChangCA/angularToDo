@@ -1,0 +1,21 @@
+<div mat-dialog-content>
+  <h2>HERE IS YOUR NEW ITEM LOL</h2>
+  <form [formGroup]="form">
+    <div class="form-group">
+      <label for="name">To Do Name:</label>
+      <input type="text"
+              class="form-control"
+              formControlName="name">
+    </div>
+    <div class="form-group">
+      <label for="description">Description:</label>
+      <textarea class="form-control"
+       formControlName="description"></textarea>
+
+    </div>
+  </form>
+</div>
+<div mat-dialog-footer> 
+  <button class="btn btn-success"(click)="save()">Save</button>
+  <button class="btn" (click)="closeModal()">Close</button>
+</div>
