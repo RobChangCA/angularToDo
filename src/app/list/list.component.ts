@@ -26,7 +26,8 @@ export class ListComponent implements OnInit {
     let dialogRef = this.dialog.open(EditComponent, {
      data: {
         name: x.name,
-        description: x.description
+        description: x.description,
+        priority: x.priority
       }
     })
     dialogRef.beforeClosed().subscribe(

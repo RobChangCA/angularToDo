@@ -3,19 +3,21 @@
   <form [formGroup]="form">
     <div class="form-group">
       <label for="name">To Do Name:</label>
-      <input type="text"
-              class="form-control"
-              formControlName="name">
+      <input type="text" class="form-control" formControlName="name">
     </div>
     <div class="form-group">
       <label for="description">Description:</label>
-      <textarea class="form-control"
-       formControlName="description"></textarea>
-
+      <textarea class="form-control" formControlName="description"></textarea>
+    </div>
+    <div class="form-group">
+      <label for="priority">Priority:</label>
+      <select name="priority" id="priority" formControlName="priority" class="form-control">
+        <option *ngFor="let item of priorityArray" [ngValue]="item">{{item}}</option>
+      </select>
     </div>
   </form>
 </div>
-<div mat-dialog-footer> 
-  <button class="btn btn-success"(click)="save()">Save</button>
+<div mat-dialog-footer>
+  <button class="btn btn-success" (click)="save()">Save</button>
   <button class="btn" (click)="closeModal()">Close</button>
 </div>
