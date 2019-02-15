@@ -1,12 +1,14 @@
 <div class="list__header">
-  <h2>Here is a list of tasks for you to complete:</h2> <button class="btn btn-primary" (click)='newToDo()'>New Item</button>
+  <div>
+    <h2>Here is a list of tasks for you to complete:</h2> <button class="btn btn-primary" (click)='newToDo()'>New Item</button>
+  </div>
 </div>
-<ul>
-  <li *ngFor="let toDo of toDoList" class="row">
+<ul class="to-do__container">
+  <li *ngFor="let toDo of toDoList" class="row to-do">
       <h3 class="col-12">{{toDo.name}}</h3>
       <p class="col-12">Priority: {{toDo.priority}}</p>
       <p [ngClass]="toDo.dateCompleted ? 'col-6': 'col-12'">Date Created: {{toDo.dateCreated | date:'shortDate'}}</p>
-      <p class="col-6" *ngIf="toDo.dateCompleted">{{toDo.dateCompleted | date:'shortDate'}}</p>
+      <p class="col-6" *ngIf="toDo.dateCompleted">Date Completed: {{toDo.dateCompleted | date:'shortDate'}}</p>
       <p class="col-12">{{toDo.description}}</p>
       <div class="container col-12">
         <button type="button" class="btn btn-primary" (click)="toggleCompleted(toDo)">Completed: {{toDo.completed ? 'Yes' : 'No'}}</button>

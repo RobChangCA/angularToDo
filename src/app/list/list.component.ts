@@ -1,5 +1,5 @@
 import { ToDoService } from './../to-do.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { ToDo } from '../model/todo';
 import { MatDialog } from '@angular/material';
 import { EditComponent } from '../edit/edit.component';

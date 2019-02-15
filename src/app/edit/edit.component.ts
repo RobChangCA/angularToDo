@@ -1,5 +1,5 @@
 import { ToDoService } from './../to-do.service';
-import { Component, OnInit, Inject, Input } from '@angular/core';
+import { Component, OnInit, Inject, Input, ViewEncapsulation } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { ToDo } from '../model/todo';
@@ -8,7 +8,7 @@ import { Priority } from '../model/priority';
 @Component({
   selector: 'app-edit',
   templateUrl: './edit.component.html',
-  styleUrls: ['./edit.component.css']
+  styleUrls: ['./edit.component.scss']
 })
 
 export class EditComponent implements OnInit {
@@ -25,15 +25,12 @@ export class EditComponent implements OnInit {
 
   private _toDoItem:ToDo ;
   public priorityEnum = Priority;
-
-//refactor enum
-  priorityArray = [
-    this.priorityEnum.low,
-    this.priorityEnum.medium,
-    this.priorityEnum.high,
-  ]
+  public priorityArray = [] 
+  public saveFailed = false;
+  
 
   ngOnInit() {
+    this.priorityArray = Object.values(Priority);
     if(this.inputData){
       this.form.patchValue({
         name: this.inputData.name,
@@ -45,8 +42,13 @@ export class EditComponent implements OnInit {
   }
 
   save(){
-    this.finalizeForm();
-    this.dialogRef.close(this._toDoItem)
+    if (this.form.valid){
+      this.saveFailed = false;
+      this.finalizeForm();
+      this.dialogRef.close(this._toDoItem)
+      return      
+    }
+    this.saveFailed = true;
   }
 
   closeModal(){
@@ -60,7 +62,7 @@ export class EditComponent implements OnInit {
       name: this.inputData ? this.inputData.name : null,
       description: this.inputData ? this.inputData.description : null,
       completed: this.inputData ? this.inputData.completed : false,
-      dateCreated: this.inputData ? this.inputData.dateCreated : null,
+      dateCreated: this.inputData ? this.inputData.dateCreated : new Date,
       dateCompleted: this.inputData ? this.inputData.dateCompleted : null,
       priority: this.inputData ? this.inputData.priority : Priority.low
     }    
@@ -78,5 +80,9 @@ export class EditComponent implements OnInit {
     return this._toDoService.data.reduce(
       (acc, cur) => cur.id > acc ? cur.id : acc, 1
     ) + 1;
+    
+    // return Math.max(...this._toDoService.data.map(
+    //   x => x.id
+    //   )) + 1
   }
 }

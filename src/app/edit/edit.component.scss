@@ -1,0 +1,21 @@
+.footer{
+    display: flex;
+    justify-content: flex-end;
+    position: relative;
+}
+
+.ng-touched.ng-invalid input{
+    border: 1px solid red;
+    position: relative;
+
+}
+
+.form-group{
+    position: relative;
+    small{
+        color: red;
+        position: absolute;
+        bottom: 0;
+        right: 5px;
+    }
+}

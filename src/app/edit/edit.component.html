@@ -4,6 +4,7 @@
     <div class="form-group">
       <label for="name">To Do Name:</label>
       <input type="text" class="form-control" formControlName="name">
+      <small *ngIf="form.invalid && form.touched">This field is required</small>
     </div>
     <div class="form-group">
       <label for="description">Description:</label>
@@ -17,7 +18,8 @@
     </div>
   </form>
 </div>
-<div mat-dialog-footer>
+<div class="footer">
   <button class="btn btn-success" (click)="save()">Save</button>
   <button class="btn" (click)="closeModal()">Close</button>
+  <small *ngIf="saveFailed">Cannot save until the form is filled out correctly</small>
 </div>
